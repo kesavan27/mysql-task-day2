@@ -1,0 +1,58 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+TABLE users {
+    userid integer [primary key]
+    username varchar
+    useremail varchar
+    batchid integer
+}
+
+Table codekata {
+   userid integer
+   number_of_problems_solved integer
+}
+Ref: codekata.userid > users.userid
+Table companydrives {
+  driveid integer
+  userid integer
+  drivedate date
+  companyname varchar
+}
+Ref: companydrives.userid > users.userid
+Table mentors {
+  mentorid integer
+  mentorname varchar
+  mentoremail varchar
+}
+Table topics {
+  topicid integer [PRIMARY KEY]
+    topic varchar
+    topic_date DATE
+    mentorid integer
+    batchid integer
+}
+Ref: topics.mentorid > mentors.mentorid
+Table tasks {
+    taskid integer [PRIMARY KEY]
+    topicid integer
+    task varchar
+    batchid integer
+}
+Ref: tasks.topicid > topics.topicid
+Table attendance {
+    attendanceid integer [PRIMARY KEY]
+    userid integer
+    topicsid integer
+    attended boolean
+}
+Ref: attendance.userid > users.userid
+Ref: attendance.topicsid > topics.topicid
+Table queries {
+    queryid integer [PRIMARY KEY]
+    userid integer
+    querybody varchar
+    mentorid integer
+    }
+Ref: queries.userid > users.userid
+Ref: queries.mentorid > mentors.mentorid
